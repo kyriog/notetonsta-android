@@ -5,5 +5,11 @@
     
     <string name="choose_campus">Please choose your campus</string>
     <string name="enter_campus">Enter this campus</string>
+    <string name="campus_refresh">Updating campus list…</string>
+    <string name="campus_refresh_finished">Campus list updated</string>
+    <string name="campus_refresh_error_timedout">Connection to server timed out</string>
+    <string name="campus_refresh_error_connrefused">Can\'t connect to the server</string>
+    <string name="campus_refresh_error_json">Error during JSON parsing</string>
+    <string name="campus_refresh_error_unknown">An unknown error has occured</string>
 
 </resources>
