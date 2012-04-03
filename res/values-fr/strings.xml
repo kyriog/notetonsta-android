@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">Note ton STA</string>
+    
+    <string name="choose_campus">Veuillez sélectionner votre campus</string>
+    <string name="enter_campus">Entrer dans ce campus</string>
+    
+</resources>
