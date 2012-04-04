@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.supinfo.notetonsta.android.entity.Campus;
 import com.supinfo.notetonsta.android.entity.SimpleIntervention;
 import com.supinfo.notetonsta.android.handler.GetCampusesHandler;
-import com.supinfo.notetonsta.android.handler.GetInterverventionsHandler;
+import com.supinfo.notetonsta.android.handler.GetInterventionsHandler;
 import com.supinfo.notetonsta.android.resource.GetCampusesResource;
 import com.supinfo.notetonsta.android.resource.GetInterventionsResource;
 
@@ -52,7 +52,7 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 		intent.putExtra("campus", campus);
 		intent.putExtra("interventions", interventions);
 		
-		GetInterverventionsHandler handler = new GetInterverventionsHandler(this, getResources(), intent);
+		GetInterventionsHandler handler = new GetInterventionsHandler(this, getResources(), intent);
 		GetInterventionsResource resource = new GetInterventionsResource(handler, interventions, campus.getId());
 		Thread thread = new Thread(resource);
 		thread.start();

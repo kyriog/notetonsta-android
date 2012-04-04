@@ -9,13 +9,13 @@ import android.content.res.Resources;
 import android.os.Message;
 import android.widget.Toast;
 
-public class GetInterverventionsHandler extends BaseHandler {
+public class GetInterventionsHandler extends BaseHandler {
 	private Activity activity;
 	private Resources resources;
 	private Intent intent;
 	private ProgressDialog progress;
 	
-	public GetInterverventionsHandler(Activity a, Resources r, Intent i) {
+	public GetInterventionsHandler(Activity a, Resources r, Intent i) {
 		activity = a;
 		resources = r;
 		intent = i;
