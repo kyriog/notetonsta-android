@@ -15,5 +15,8 @@
     <string name="interventions_error_noresult">Il n\'y a aucune intervention sur ce campus</string>
     
     <string name="choose_intervention">Veuillez sélectionner l\'invervention que vous souhaitez évaluer</string>
+    <string name="intervention_state_started">A commencé</string>
+    <string name="intervention_state_inprogress">En cours</string>
+    <string name="intervention_state_finished">Terminé</string>
     
 </resources>
