@@ -7,9 +7,13 @@
     <string name="enter_campus">Entrer dans ce campus</string>
     <string name="campus_refresh">Mise à jour de la liste des campus…</string>
     <string name="campus_refresh_finished">Liste des campus mise à jour</string>
-    <string name="campus_refresh_error_timedout">La connexion au serveur a expirée</string>
-    <string name="campus_refresh_error_connrefused">Impossible de se connecter au serveur</string>
-    <string name="campus_refresh_error_json">Erreur durant l\'analyse du JSON</string>
-    <string name="campus_refresh_error_unknown">Une erreur inconnue s\'est produite</string>
+    <string name="error_timedout">La connexion au serveur a expirée</string>
+    <string name="error_connrefused">Impossible de se connecter au serveur</string>
+    <string name="error_json">Erreur durant l\'analyse du JSON</string>
+    <string name="error_unknown">Une erreur inconnue s\'est produite</string>
+    <string name="interventions_load">Chargement des interventions…</string>
+    <string name="interventions_error_noresult">Il n\'y a aucune intervention sur ce campus</string>
+    
+    <string name="choose_intervention">Veuillez sélectionner l\'invervention que vous souhaitez évaluer</string>
     
 </resources>

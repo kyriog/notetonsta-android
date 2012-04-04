@@ -1,6 +1,12 @@
 package com.supinfo.notetonsta.android.entity;
 
-public class Campus {
+import java.io.Serializable;
+
+public class Campus implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1064737664879477141L;
 	private Long id;
 	private String name;
 	

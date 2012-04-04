@@ -19,21 +19,22 @@ import org.json.JSONObject;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
-import com.supinfo.notetonsta.android.entity.Campus;
+import com.supinfo.notetonsta.android.entity.SimpleIntervention;
+import com.supinfo.notetonsta.android.exception.ZeroResultException;
 import com.supinfo.notetonsta.android.handler.BaseHandler;
 
-public class GetCampusesResource implements Runnable {
+public class GetInterventionsResource implements Runnable {
 	private String jsonString;
-	private ArrayList<Campus> parsedJSON = new ArrayList<Campus>();
 	
 	private Handler handler;
-	private ArrayAdapter<Campus> adapter;
+	private ArrayList<SimpleIntervention> list;
+	private Long idCampus;
 	
-	public GetCampusesResource(Handler h, ArrayAdapter<Campus> a) {
+	public GetInterventionsResource(Handler h, ArrayList<SimpleIntervention> l, Long idCampus) {
 		handler = h;
-		adapter = a;
+		list = l;
+		this.idCampus = idCampus;
 	}
 
 	public void run() {
@@ -42,9 +43,8 @@ public class GetCampusesResource implements Runnable {
 		handler.sendMessage(message);
 		message = handler.obtainMessage();
 		try {
-			getCampusesRaw();
+			getInterventionsRaw();
 			parseJSON();
-			regenerateAdapter();
 			message.arg1 = BaseHandler.STATUS_FINISHED_OK;
 		} catch(ConnectTimeoutException e) { 
 			Log.w("Warning",e.getMessage(),e);
@@ -52,7 +52,10 @@ public class GetCampusesResource implements Runnable {
 		} catch(HttpHostConnectException e) {
 			Log.w("Warning",e.getMessage(),e);
 			message.arg1 = BaseHandler.STATUS_ERROR_CONNREFUSED;
-		}  catch (JSONException e) {
+		} catch (ZeroResultException e) {
+			Log.i("Info",e.getMessage(),e);
+			message.arg1 = BaseHandler.STATUS_FINISHED_NORESULT;
+		} catch (JSONException e) {
 			// This will be caught if JSON library can't parse server return
 			Log.w("Warning",e.getMessage(),e);
 			message.arg1 = BaseHandler.STATUS_ERROR_JSON;
@@ -60,12 +63,12 @@ public class GetCampusesResource implements Runnable {
 			// We've to catch any unknown exception
 			Log.e("Error",e.getMessage(),e);
 			message.arg1 = BaseHandler.STATUS_ERROR_UNKNOWN;
-		} finally {
+		}  finally {
 			handler.sendMessage(message);
 		}
 	}
 
-	private void getCampusesRaw() throws ConnectTimeoutException, HttpHostConnectException, Exception {
+	private void getInterventionsRaw() throws ConnectTimeoutException, HttpHostConnectException, Exception {
 		jsonString = null;
 		BasicHttpParams basicHttpParams = new BasicHttpParams();
 		// Connection must time out after 10 second to prevent infinite loop
@@ -74,34 +77,37 @@ public class GetCampusesResource implements Runnable {
 		
 		HttpGet httpGet = new HttpGet();
 		httpGet.setHeader("Accept", "application/json");
-		URI uri = new URI("http://192.168.0.13:8080/Note_ton_STA/resource/campus/");
+		URI uri = new URI("http://192.168.0.13:8080/Note_ton_STA/resource/campus/"+idCampus);
 		httpGet.setURI(uri);
 		
 		HttpResponse response = httpClient.execute(httpGet);
 		jsonString = EntityUtils.toString(response.getEntity()); 
 	}
 	
-	private void parseJSON() throws JSONException {
+	private void parseJSON() throws JSONException, ZeroResultException {
+		if("null".equals(jsonString)) {
+			throw new ZeroResultException();
+		}
 		JSONObject jsonObj = new JSONObject(jsonString);
-		JSONArray json = jsonObj.getJSONArray("campus");
+		JSONArray json = jsonObj.optJSONArray("intervention");
+		if(json == null) {
+			json = new JSONArray();
+			json.put(jsonObj.getJSONObject("intervention"));
+		}
 		int nb = json.length();
 		
 		JSONObject current;
-		Campus c;
-		for(int i = 0;i<nb;i++) {
-			current = json.getJSONObject(i);
-			c = new Campus();
-			c.setId(current.getLong("id"));
-			c.setName(current.getString("name"));
+		SimpleIntervention i;
+		for(int j = 0;j<nb;j++) {
+			current = json.getJSONObject(j);
+			i = new SimpleIntervention();
+			i.setId(current.getLong("id"));
+			i.setName(current.getString("name"));
+			i.setDateStart(current.getString("dateStart"));
+			i.setDateEnd(current.getString("dateEnd"));
+			i.setStatus(current.getInt("status"));
 			
-			parsedJSON.add(c);
-		}
-	}
-	
-	private void regenerateAdapter() {
-		adapter.clear();
-		for(Campus c : parsedJSON) {
-			adapter.add(c);
+			list.add(i);
 		}
 	}
 }
