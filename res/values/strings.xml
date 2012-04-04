@@ -18,5 +18,13 @@
     <string name="intervention_state_started">Started</string>
     <string name="intervention_state_inprogress">In progress</string>
     <string name="intervention_state_finished">Finished</string>
+    <string name="intervention_load">Loading intervention…</string>
+    
+    <string name="intervention_date_start">From</string>
+    <string name="intervention_date_end">to</string>
+    <string name="intervention_evaluation_number">Number of evaluations: </string>
+    <string name="intervention_speaker_note">Speaker average mark: </string>
+    <string name="intervention_slide_note">Slide average mark: </string>
+    <string name="intervention_global_note">Intervention average mark: </string>
 
 </resources>

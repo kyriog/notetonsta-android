@@ -18,5 +18,13 @@
     <string name="intervention_state_started">A commencé</string>
     <string name="intervention_state_inprogress">En cours</string>
     <string name="intervention_state_finished">Terminé</string>
+    <string name="intervention_load">Chargement de l\'intervention…</string>
+    
+    <string name="intervention_date_start">Du</string>
+    <string name="intervention_date_end">au</string>
+    <string name="intervention_evaluation_number">Nombre d\'évaluations : </string>
+    <string name="intervention_speaker_note">Moyenne de l\'intervenant : </string>
+    <string name="intervention_slide_note">Moyenne du support : </string>
+    <string name="intervention_global_note">Moyenne de l\'intervention : </string>
     
 </resources>

@@ -3,7 +3,9 @@ package com.supinfo.notetonsta.android.adapter;
 import java.util.List;
 
 import com.supinfo.notetonsta.android.R;
+import com.supinfo.notetonsta.android.entity.Campus;
 import com.supinfo.notetonsta.android.entity.SimpleIntervention;
+import com.supinfo.notetonsta.android.listener.ChooseInterventionListener;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -16,12 +18,16 @@ import android.widget.TextView;
 
 public class ChooseInterventionAdapter extends BaseAdapter {
 	private static Resources resources;
+	private static Campus campus;
 	
 	private Context context;
 	private List<SimpleIntervention> interventions;
 	
 	public static void setResources(Resources r) {
 		resources = r;
+	}
+	public static void setCampus(Campus c) {
+		campus = c;
 	}
 	
 	public ChooseInterventionAdapter(Context c, List<SimpleIntervention> i) {
@@ -58,6 +64,9 @@ public class ChooseInterventionAdapter extends BaseAdapter {
 		
 		if(position%2 == 0)
 			layout.setBackgroundColor(Color.DKGRAY);
+		
+		ChooseInterventionListener listener = new ChooseInterventionListener(intervention, campus);
+		layout.setOnClickListener(listener);
 		
 		return layout;
 	}
