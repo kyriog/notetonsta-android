@@ -19,7 +19,6 @@ import org.json.JSONObject;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.supinfo.notetonsta.android.entity.Campus;
 import com.supinfo.notetonsta.android.handler.BaseHandler;
