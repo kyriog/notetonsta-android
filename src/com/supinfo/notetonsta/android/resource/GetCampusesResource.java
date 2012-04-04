@@ -29,9 +29,9 @@ public class GetCampusesResource implements Runnable {
 	private ArrayList<Campus> parsedJSON = new ArrayList<Campus>();
 	
 	private Handler handler;
-	private ArrayAdapter<Campus> adapter;
+	private ArrayList<Campus> adapter;
 	
-	public GetCampusesResource(Handler h, ArrayAdapter<Campus> a) {
+	public GetCampusesResource(Handler h, ArrayList<Campus> a) {
 		handler = h;
 		adapter = a;
 	}

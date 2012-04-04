@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 public class ChooseCampusActivity extends Activity implements View.OnClickListener {
-	Spinner campusList;
+	Spinner campusSpinner;
 	
     /** Called when the activity is first created. */
     @Override
@@ -26,26 +26,27 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choosecampus);
         
-        campusList = (Spinner) findViewById(R.id.campuslist);
+        campusSpinner = (Spinner) findViewById(R.id.campuslist);
         Button campusButton = (Button) findViewById(R.id.campusbutton);
         
         campusButton.setOnClickListener(this);
         
-        ArrayAdapter<Campus> campusAdapter = new ArrayAdapter<Campus>(this, android.R.layout.simple_spinner_item);
+        ArrayList<Campus> campusList = new ArrayList<Campus>();
+        ArrayAdapter<Campus> campusAdapter = new ArrayAdapter<Campus>(this, android.R.layout.simple_spinner_item, campusList);
         
-        campusList.setAdapter(campusAdapter);
+        campusSpinner.setAdapter(campusAdapter);
         
         campusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
         GetCampusesHandler handler = new GetCampusesHandler(this, getResources(), campusAdapter);
-        GetCampusesResource resource = new GetCampusesResource(handler, campusAdapter);
+        GetCampusesResource resource = new GetCampusesResource(handler, campusList);
         Thread thread = new Thread(resource);
         thread.start();
     }
 
 	public void onClick(View v) {
 		ArrayList<SimpleIntervention> interventions = new ArrayList<SimpleIntervention>();
-		Campus campus = (Campus) campusList.getSelectedItem();
+		Campus campus = (Campus) campusSpinner.getSelectedItem();
 		
 		Intent intent = new Intent(this, ChooseInterventionActivity.class);
 		intent.putExtra("campus", campus);
