@@ -4,11 +4,16 @@ import com.supinfo.notetonsta.android.entity.Campus;
 import com.supinfo.notetonsta.android.entity.ComplexIntervention;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ViewInterventionActivity extends Activity {
+	ComplexIntervention intervention;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +22,7 @@ public class ViewInterventionActivity extends Activity {
 		
 		Bundle extras = getIntent().getExtras();
 		Campus campus = (Campus) extras.getSerializable("campus");
-		ComplexIntervention intervention = (ComplexIntervention) extras.getSerializable("intervention");
+		intervention = (ComplexIntervention) extras.getSerializable("intervention");
 		
 		LinearLayout interventionMainLayout = (LinearLayout) findViewById(R.id.intervention_main_layout);
 		LinearLayout interventionNoteLayout = (LinearLayout) findViewById(R.id.intervention_note_layout);
@@ -45,4 +50,21 @@ public class ViewInterventionActivity extends Activity {
 			interventionMainLayout.removeView(interventionNoteLayout);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.viewintervention, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		case R.id.menuitem_evaluate_intervention:
+			Intent intent = new Intent(this, EvaluateInterventionActivity.class);
+			intent.putExtra("intervention", intervention);
+			startActivity(intent);
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }

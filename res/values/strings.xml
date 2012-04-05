@@ -3,6 +3,8 @@
     
     <string name="app_name">Rate your STA</string>
     
+    <string name="menuitem_evaluate_intervention">Evaluate intervention</string>
+    
     <string name="choose_campus">Please choose your campus</string>
     <string name="enter_campus">Enter this campus</string>
     <string name="campus_refresh">Updating campus list…</string>
@@ -26,5 +28,17 @@
     <string name="intervention_speaker_note">Speaker average mark: </string>
     <string name="intervention_slide_note">Slide average mark: </string>
     <string name="intervention_global_note">Intervention average mark: </string>
+    
+    <string name="evaluation_idbooster">ID Booster</string>
+    <string name="evaluation_about_speaker">About speaker…</string>
+    <string name="evaluation_speaker_knowledge">His knowledge</string>
+    <string name="evaluation_speaker_capacity">His teaching capacity</string>
+    <string name="evaluation_speaker_quality">His answers quality</string>
+    <string name="evaluation_about_slide">About slides…</string>
+    <string name="evaluation_slide_content">Richness of content</string>
+    <string name="evaluation_slide_format">Format / Layout</string>
+    <string name="evaluation_slide_examples">Examples</string>
+    <string name="evaluation_comment">Any comment?</string>
+    <string name="evaluation_submit">Submit evaluation</string>
 
 </resources>
