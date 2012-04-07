@@ -5,6 +5,7 @@
     
     <string name="menuitem_refresh">Actualiser</string>
     <string name="menuitem_seturi">Définir l\'URI</string>
+    <string name="menuitem_exit">Quitter</string>
     <string name="menuitem_evaluate_intervention">Évaluer l\'intervention</string>
     
     <string name="choose_campus">Veuillez sélectionner votre campus</string>

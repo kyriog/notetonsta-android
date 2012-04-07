@@ -10,4 +10,10 @@
         android:title="@string/menuitem_seturi"
         android:icon="@drawable/ic_menu_edit"
         android:id="@+id/menuitem_seturi" />
+    
+    <item
+        android:title="@string/menuitem_exit"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:id="@+id/menuitem_exit" />
+    
 </menu>

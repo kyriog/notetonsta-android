@@ -101,6 +101,9 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 	        GetCampusesResource resource = new GetCampusesResource(handler, campusList);
 	        Thread thread = new Thread(resource);
 	        thread.start();
+	        break;
+		case R.id.menuitem_exit:
+			finish();
 		}
 		return super.onOptionsItemSelected(item);
 	}

@@ -5,6 +5,7 @@
     
     <string name="menuitem_refresh">Refresh</string>
     <string name="menuitem_seturi">Set URI</string>
+    <string name="menuitem_exit">Exit</string>
     <string name="menuitem_evaluate_intervention">Evaluate intervention</string>
     
     <string name="choose_campus">Please choose your campus</string>
