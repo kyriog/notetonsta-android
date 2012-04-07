@@ -40,5 +40,9 @@
     <string name="evaluation_slide_examples">Examples</string>
     <string name="evaluation_comment">Any comment?</string>
     <string name="evaluation_submit">Submit evaluation</string>
+    <string name="evaluation_sending">Sending evaluation…</string>
+    <string name="evaluation_sent">Evaluation sent</string>
+    <string name="evaluation_error_noidbooster">You have to provide an ID Booster</string>
+    <string name="evaluation_error_wrongidbooster">Your ID Booster isn\'t valid</string>
 
 </resources>

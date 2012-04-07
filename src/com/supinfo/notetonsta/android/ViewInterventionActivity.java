@@ -13,7 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ViewInterventionActivity extends Activity {
-	ComplexIntervention intervention;
+	public static final int EVALUATE_ACTIVITY_CODE = 1;
+	
+	private ComplexIntervention intervention;
+	private TextView interventionEvaluationNumber;
+	private TextView interventionSpeakerNote;
+	private TextView interventionSlideNote;
+	private TextView interventionGlobalNote;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +37,10 @@ public class ViewInterventionActivity extends Activity {
 		TextView interventionDescription = (TextView) findViewById(R.id.intervention_description);
 		TextView interventionDateStart = (TextView) findViewById(R.id.intervention_date_start);
 		TextView interventionDateEnd = (TextView) findViewById(R.id.intervention_date_end);
-		TextView interventionEvaluationNumber = (TextView) findViewById(R.id.intervention_evalution_number);
-		TextView interventionSpeakerNote = (TextView) findViewById(R.id.intervention_speaker_note);
-		TextView interventionSlideNote = (TextView) findViewById(R.id.intervention_slide_note);
-		TextView interventionGlobalNote = (TextView) findViewById(R.id.intervention_global_note);
+		interventionEvaluationNumber = (TextView) findViewById(R.id.intervention_evalution_number);
+		interventionSpeakerNote = (TextView) findViewById(R.id.intervention_speaker_note);
+		interventionSlideNote = (TextView) findViewById(R.id.intervention_slide_note);
+		interventionGlobalNote = (TextView) findViewById(R.id.intervention_global_note);
 		
 		interventionCampus.setText(campus.getName());
 		interventionName.setText(intervention.getName());
@@ -63,8 +69,25 @@ public class ViewInterventionActivity extends Activity {
 		case R.id.menuitem_evaluate_intervention:
 			Intent intent = new Intent(this, EvaluateInterventionActivity.class);
 			intent.putExtra("intervention", intervention);
-			startActivity(intent);
+			startActivityForResult(intent, EVALUATE_ACTIVITY_CODE);
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch(requestCode) {
+		case EVALUATE_ACTIVITY_CODE:
+			if(resultCode == RESULT_OK) {
+				Bundle extras = data.getExtras();
+				ComplexIntervention interventionUpdated = (ComplexIntervention) extras.getSerializable("intervention");
+				interventionEvaluationNumber.setText(interventionUpdated.getEvaluationNumber().toString());
+				interventionSpeakerNote.setText(interventionUpdated.getSpeakerNote().toString());
+				interventionSlideNote.setText(interventionUpdated.getSlideNote().toString());
+				interventionGlobalNote.setText(interventionUpdated.getGlobalNote().toString());
+			}
+		}
 	}
 }
