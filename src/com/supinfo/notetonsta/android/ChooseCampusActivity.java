@@ -31,6 +31,8 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 	private SharedPreferences preferences;
 	private EditText seturiEdittext;
 	private Spinner campusSpinner;
+	private ArrayAdapter<Campus> campusAdapter;
+	private ArrayList<Campus> campusList;
 	
     /** Called when the activity is first created. */
     @Override
@@ -46,8 +48,8 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
         
         campusButton.setOnClickListener(this);
         
-        ArrayList<Campus> campusList = new ArrayList<Campus>();
-        ArrayAdapter<Campus> campusAdapter = new ArrayAdapter<Campus>(this, android.R.layout.simple_spinner_item, campusList);
+        campusList = new ArrayList<Campus>();
+        campusAdapter = new ArrayAdapter<Campus>(this, android.R.layout.simple_spinner_item, campusList);
         
         campusSpinner.setAdapter(campusAdapter);
         
@@ -93,6 +95,12 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 			seturiDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getText(android.R.string.cancel), this);
 			seturiDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getText(android.R.string.ok), this);
 			seturiDialog.show();
+			break;
+		case R.id.menuitem_refresh:
+			GetCampusesHandler handler = new GetCampusesHandler(this, getResources(), campusAdapter);
+	        GetCampusesResource resource = new GetCampusesResource(handler, campusList);
+	        Thread thread = new Thread(resource);
+	        thread.start();
 		}
 		return super.onOptionsItemSelected(item);
 	}

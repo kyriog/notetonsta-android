@@ -3,6 +3,7 @@
     
     <string name="app_name">Rate your STA</string>
     
+    <string name="menuitem_refresh">Refresh</string>
     <string name="menuitem_seturi">Set URI</string>
     <string name="menuitem_evaluate_intervention">Evaluate intervention</string>
     
