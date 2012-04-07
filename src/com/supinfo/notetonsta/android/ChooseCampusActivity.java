@@ -30,7 +30,7 @@ import android.widget.Spinner;
 public class ChooseCampusActivity extends Activity implements View.OnClickListener, OnClickListener {
 	private SharedPreferences preferences;
 	private EditText seturiEdittext;
-	Spinner campusSpinner;
+	private Spinner campusSpinner;
 	
     /** Called when the activity is first created. */
     @Override
