@@ -65,7 +65,11 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
             Thread thread = new Thread(resource);
             thread.start();
         } else {
-        	campusList.addAll(sqliteCampusList);
+        	for(Campus campus : sqliteCampusList) {
+        		campusList.add(campus);
+        		if(campus.getId() == preferences.getLong("default_campus", 0))
+        			campusSpinner.setSelection(campusList.size()-1);
+        	}
         	campusAdapter.notifyDataSetChanged();
         }
     }
@@ -79,6 +83,10 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 	public void onClick(View v) {
 		ArrayList<SimpleIntervention> interventions = new ArrayList<SimpleIntervention>();
 		Campus campus = (Campus) campusSpinner.getSelectedItem();
+		
+		SharedPreferences.Editor preferencesEditor = preferences.edit();
+		preferencesEditor.putLong("default_campus", campus.getId());
+		preferencesEditor.commit();
 		
 		Intent intent = new Intent(this, ChooseInterventionActivity.class);
 		intent.putExtra("campus", campus);
