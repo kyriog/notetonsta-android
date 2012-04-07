@@ -21,7 +21,7 @@ import android.util.Log;
 import com.supinfo.notetonsta.android.entity.ComplexIntervention;
 import com.supinfo.notetonsta.android.handler.BaseHandler;
 
-public class GetInterventionResource implements Runnable {
+public class GetInterventionResource extends BaseResource implements Runnable {
 	private String jsonString;
 	
 	private Handler handler;
@@ -71,7 +71,7 @@ public class GetInterventionResource implements Runnable {
 		
 		HttpGet httpGet = new HttpGet();
 		httpGet.setHeader("Accept", "application/json");
-		URI uri = new URI("http://192.168.0.13:8080/Note_ton_STA/resource/intervention/"+idIntervention);
+		URI uri = new URI(baseURI+"intervention/"+idIntervention);
 		httpGet.setURI(uri);
 		
 		HttpResponse response = httpClient.execute(httpGet);

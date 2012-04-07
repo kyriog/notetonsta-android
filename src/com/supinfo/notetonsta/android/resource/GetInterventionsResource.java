@@ -24,7 +24,7 @@ import com.supinfo.notetonsta.android.entity.SimpleIntervention;
 import com.supinfo.notetonsta.android.exception.ZeroResultException;
 import com.supinfo.notetonsta.android.handler.BaseHandler;
 
-public class GetInterventionsResource implements Runnable {
+public class GetInterventionsResource extends BaseResource implements Runnable {
 	private String jsonString;
 	
 	private Handler handler;
@@ -77,7 +77,7 @@ public class GetInterventionsResource implements Runnable {
 		
 		HttpGet httpGet = new HttpGet();
 		httpGet.setHeader("Accept", "application/json");
-		URI uri = new URI("http://192.168.0.13:8080/Note_ton_STA/resource/campus/"+idCampus);
+		URI uri = new URI(baseURI+"campus/"+idCampus);
 		httpGet.setURI(uri);
 		
 		HttpResponse response = httpClient.execute(httpGet);

@@ -23,7 +23,7 @@ import com.supinfo.notetonsta.android.entity.ComplexIntervention;
 import com.supinfo.notetonsta.android.entity.Evaluation;
 import com.supinfo.notetonsta.android.handler.BaseHandler;
 
-public class AddEvaluationResource implements Runnable {
+public class AddEvaluationResource extends BaseResource implements Runnable {
 	private JSONObject generatedJSON;
 	private String jsonString;
 	
@@ -89,7 +89,7 @@ public class AddEvaluationResource implements Runnable {
 		
 		HttpPost httpPost = new HttpPost();
 		httpPost.setHeader("Accept", "application/json");
-		URI uri = new URI("http://192.168.0.13:8080/Note_ton_STA/resource/evaluation");
+		URI uri = new URI(baseURI+"evaluation");
 		httpPost.setURI(uri);
 		httpPost.setEntity(new StringEntity(generatedJSON.toString()));
 		httpPost.setHeader("Content-Type", "application/json");
