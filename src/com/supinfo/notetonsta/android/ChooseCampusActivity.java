@@ -6,6 +6,7 @@ import com.supinfo.notetonsta.android.entity.Campus;
 import com.supinfo.notetonsta.android.entity.SimpleIntervention;
 import com.supinfo.notetonsta.android.handler.GetCampusesHandler;
 import com.supinfo.notetonsta.android.handler.GetInterventionsHandler;
+import com.supinfo.notetonsta.android.helper.CampusSqliteHelper;
 import com.supinfo.notetonsta.android.resource.BaseResource;
 import com.supinfo.notetonsta.android.resource.GetCampusesResource;
 import com.supinfo.notetonsta.android.resource.GetInterventionsResource;
@@ -33,6 +34,7 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 	private Spinner campusSpinner;
 	private ArrayAdapter<Campus> campusAdapter;
 	private ArrayList<Campus> campusList;
+	private CampusSqliteHelper sql;
 	
     /** Called when the activity is first created. */
     @Override
@@ -55,11 +57,24 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
         
         campusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
-        GetCampusesHandler handler = new GetCampusesHandler(this, getResources(), campusAdapter);
-        GetCampusesResource resource = new GetCampusesResource(handler, campusList);
-        Thread thread = new Thread(resource);
-        thread.start();
+        sql = new CampusSqliteHelper(this);
+        ArrayList<Campus> sqliteCampusList = sql.listAllCampus();
+        if(sqliteCampusList.size() == 0) {
+        	GetCampusesHandler handler = new GetCampusesHandler(this, getResources(), campusAdapter);
+            GetCampusesResource resource = new GetCampusesResource(handler, campusList, sql.getWritableDatabase());
+            Thread thread = new Thread(resource);
+            thread.start();
+        } else {
+        	campusList.addAll(sqliteCampusList);
+        	campusAdapter.notifyDataSetChanged();
+        }
     }
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		sql.close();
+	}
 
 	public void onClick(View v) {
 		ArrayList<SimpleIntervention> interventions = new ArrayList<SimpleIntervention>();
@@ -98,7 +113,7 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 			break;
 		case R.id.menuitem_refresh:
 			GetCampusesHandler handler = new GetCampusesHandler(this, getResources(), campusAdapter);
-	        GetCampusesResource resource = new GetCampusesResource(handler, campusList);
+	        GetCampusesResource resource = new GetCampusesResource(handler, campusList, sql.getWritableDatabase());
 	        Thread thread = new Thread(resource);
 	        thread.start();
 	        break;

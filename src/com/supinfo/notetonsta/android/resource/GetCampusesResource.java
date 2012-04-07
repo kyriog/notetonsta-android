@@ -16,12 +16,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
 import com.supinfo.notetonsta.android.entity.Campus;
 import com.supinfo.notetonsta.android.handler.BaseHandler;
+import com.supinfo.notetonsta.android.helper.CampusSqliteHelper;
 
 public class GetCampusesResource extends BaseResource implements Runnable {
 	private String jsonString;
@@ -29,10 +31,12 @@ public class GetCampusesResource extends BaseResource implements Runnable {
 	
 	private Handler handler;
 	private ArrayList<Campus> list;
+	private SQLiteDatabase db;
 	
-	public GetCampusesResource(Handler h, ArrayList<Campus> l) {
+	public GetCampusesResource(Handler h, ArrayList<Campus> l, SQLiteDatabase d) {
 		handler = h;
 		list = l;
+		db = d;
 	}
 
 	public void run() {
@@ -44,6 +48,7 @@ public class GetCampusesResource extends BaseResource implements Runnable {
 			getCampusesRaw();
 			parseJSON();
 			regenerateAdapter();
+			db.close();
 			message.arg1 = BaseHandler.STATUS_FINISHED_OK;
 		} catch(ConnectTimeoutException e) { 
 			Log.w("Warning",e.getMessage(),e);
@@ -99,8 +104,10 @@ public class GetCampusesResource extends BaseResource implements Runnable {
 	
 	private void regenerateAdapter() {
 		list.clear();
+		CampusSqliteHelper.clearCampus(db);
 		for(Campus c : parsedJSON) {
 			list.add(c);
+			CampusSqliteHelper.insertCampus(c, db);
 		}
 	}
 }
