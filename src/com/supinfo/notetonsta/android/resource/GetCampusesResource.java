@@ -28,11 +28,11 @@ public class GetCampusesResource extends BaseResource implements Runnable {
 	private ArrayList<Campus> parsedJSON = new ArrayList<Campus>();
 	
 	private Handler handler;
-	private ArrayList<Campus> adapter;
+	private ArrayList<Campus> list;
 	
-	public GetCampusesResource(Handler h, ArrayList<Campus> a) {
+	public GetCampusesResource(Handler h, ArrayList<Campus> l) {
 		handler = h;
-		adapter = a;
+		list = l;
 	}
 
 	public void run() {
@@ -98,9 +98,9 @@ public class GetCampusesResource extends BaseResource implements Runnable {
 	}
 	
 	private void regenerateAdapter() {
-		adapter.clear();
+		list.clear();
 		for(Campus c : parsedJSON) {
-			adapter.add(c);
+			list.add(c);
 		}
 	}
 }
