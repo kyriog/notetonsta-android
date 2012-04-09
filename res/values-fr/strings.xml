@@ -8,6 +8,8 @@
     <string name="menuitem_exit">Quitter</string>
     <string name="menuitem_evaluate_intervention">Évaluer l\'intervention</string>
     
+    <string name="alertdialog_use_gae">Utiliser GAE</string>
+    
     <string name="choose_campus">Veuillez sélectionner votre campus</string>
     <string name="enter_campus">Entrer dans ce campus</string>
     <string name="campus_refresh">Mise à jour de la liste des campus…</string>

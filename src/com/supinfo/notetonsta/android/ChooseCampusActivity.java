@@ -43,7 +43,7 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
         setContentView(R.layout.choosecampus);
         
         preferences = getPreferences(Context.MODE_PRIVATE);
-        BaseResource.setBaseURI(preferences.getString("baseURI", ""));
+        BaseResource.setBaseURI(preferences.getString("baseURI", "http://notetonsta-94659.appspot.com/resource/"));
         
         campusSpinner = (Spinner) findViewById(R.id.campuslist);
         Button campusButton = (Button) findViewById(R.id.campusbutton);
@@ -116,6 +116,7 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 			seturiDialog.setTitle(R.string.menuitem_seturi);
 			seturiDialog.setView(seturiEdittext);
 			seturiDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getText(android.R.string.cancel), this);
+			seturiDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getText(R.string.alertdialog_use_gae), this);
 			seturiDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getText(android.R.string.ok), this);
 			seturiDialog.show();
 			break;
@@ -132,14 +133,20 @@ public class ChooseCampusActivity extends Activity implements View.OnClickListen
 	}
 
 	public void onClick(DialogInterface arg0, int button) {
-		if(button == AlertDialog.BUTTON_POSITIVE) {
+		SharedPreferences.Editor preferencesEditor = preferences.edit();
+		switch(button) {
+		case AlertDialog.BUTTON_POSITIVE:
 			String newURI = seturiEdittext.getText().toString();
 			if(!"/".equals(newURI.substring(newURI.length()-1)))
 				newURI += "/";
-			SharedPreferences.Editor preferencesEditor = preferences.edit();
 			preferencesEditor.putString("baseURI", newURI);
 			preferencesEditor.commit();
 			BaseResource.setBaseURI(newURI);
+			break;
+		case AlertDialog.BUTTON_NEUTRAL:
+			preferencesEditor.remove("baseURI");
+			preferencesEditor.commit();
+			BaseResource.setBaseURI("http://notetonsta-94659.appspot.com/resource/");
 		}
 	}
 }
